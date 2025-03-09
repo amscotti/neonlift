@@ -25,11 +25,18 @@ To run the application, use the following command:
 go run main.go
 ```
 
-You can specify the duration for standing and sitting using the `-stand` and `-sit` flags, respectively:
+You can customize the application using the following command-line flags:
 
 ```sh
-go run main.go -stand=45m -sit=15m
+go run main.go -stand=45m -sit=15m -sound=true -desktop=true -icon=/path/to/icon.png
 ```
+
+Available options:
+- `-stand`: Duration for standing (default: 30m)
+- `-sit`: Duration for sitting (default: 60m)
+- `-sound`: Enable sound notifications (default: true)
+- `-desktop`: Enable desktop notifications (default: true)
+- `-icon`: Path to notification icon for desktop notifications (optional)
 
 Press 'Enter' to start, 'Space' to pause, and 'Q' to quit the application.
 
@@ -48,16 +55,39 @@ Then, run the application in a Docker container:
 docker run --rm neonlift
 ```
 
-You can also pass the `-stand` and `-sit` flags to customize the durations:
+You can also pass command-line flags to customize the application:
 
 ```sh
-docker run --rm neonlift -stand=45m -sit=15m
+docker run --rm neonlift -stand=45m -sit=15m -sound=true -desktop=false
 ```
 
-## TODO / Improvements
+## Developer Information
 
-- Restructure code.
-- Add unit test
-- Options for notification other than beeping.
+### Running Tests
 
-I'm always looking to improve Neon Lift, so if you're keen to contribute, have at it! Fork the repo, work your magic, and send a pull request my way. 
+To run all tests in the project:
+
+```sh
+go test ./...
+```
+
+To run tests for a specific package:
+
+```sh
+go test ./model
+go test ./notification
+go test ./timer
+```
+
+To run tests with coverage report:
+
+```sh
+go test -cover ./...
+```
+
+For a detailed HTML coverage report:
+
+```sh
+go test -coverprofile=coverage.out ./...
+go tool cover -html=coverage.out
+```
